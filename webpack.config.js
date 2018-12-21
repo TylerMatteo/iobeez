@@ -16,8 +16,7 @@ const config = {
               test: /\.(js)$/, use: {
                   loader: 'babel-loader',
                   options: {
-                      presets: ['react', 'es2015'],
-                      plugins: ['transform-object-rest-spread']
+                      presets: ['react', 'env']
                   }
                 } 
           },
@@ -41,8 +40,7 @@ if (process.env.NODE_ENV === 'production') {
             'process.env': {
                 'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
             } 
-        }),
-        new webpack.optimize.UglifyJsPlugin()
+        })
     )
 }
 
