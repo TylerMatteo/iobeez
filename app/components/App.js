@@ -1,5 +1,6 @@
 import React from 'react';
 import io from 'socket.io-client';
+import Temperature from './Temperature'
 
 class App extends React.Component {
 
@@ -11,28 +12,39 @@ class App extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.socket = io('localhost:3000/temperature');
-        this.socket.on('update',(data) => {
-            console.log(data);
-            this.setState((prevState) => {
-                return {
-                    words: [...prevState.words, data]
-                }
-            })
-        })
-    }
+    // componentDidMount() {
+    //     this.socket = io('localhost:3000/temperature');
+    //     this.socket.on('update',(data) => {
+    //         console.log(data);
+    //         this.setState((prevState) => {
+    //             return {
+    //                 words: [...prevState.words, data]
+    //             }
+    //         })
+    //     })
+    // }
 
-    componentWillUnmount() {
-        this.socket.close();
-    }
+    // componentWillUnmount() {
+    //     this.socket.close();
+    // }
 
     render() {
         return (
-            <div>
-                <span>hello world</span>
-                {this.state.words[0]}
-                <ul>
+            <main>
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div>
+                    <Temperature />
+                </div>
+                <div>
+
+                </div>
+
+
+                {/* <ul>
                     {
                         this.state.words.map((word) =>
                             <li key={word}>
@@ -40,10 +52,10 @@ class App extends React.Component {
                             </li>
                         )
                     }
-                </ul>
+                </ul> */}
 
                 
-            </div>
+            </main>
         )
     }
 }
