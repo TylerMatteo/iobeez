@@ -45,10 +45,9 @@ if (process.env.NODE_ENV === 'production') {
         })
     )
 } else {
-    console.log('else')
     config.plugins.push(
         new webpack.DefinePlugin({
-            'process.env.API_URL': JSON.stringify("http://localhost:3000")
+            'process.env.API_URL': JSON.stringify("https://iobeez-server.herokuapp.com:3000")
         })
     )
 }

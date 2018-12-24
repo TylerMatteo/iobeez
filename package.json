@@ -6,11 +6,12 @@
   "scripts": {
     "dev": "webpack-dev-server --open",
     "start": "node server.js",
-    "heroku-postbuild": "NODE_ENV='production' API_URL='https://iobeez-server.herokuapp.com' webpack -p"
+    "heroku-postbuild": "NODE_ENV='production' API_URL='https://iobeez-server.herokuapp.com:3000' webpack -p"
   },
   "author": "Tyler Matteo",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "d3-scale": "^2.1.2",
     "d3-shape": "^1.2.2",
     "d3-time": "^1.0.10",
