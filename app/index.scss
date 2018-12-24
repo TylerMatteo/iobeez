@@ -1,3 +1,175 @@
-span {
-    color: red;
+@import url('https://fonts.googleapis.com/css?family=Assistant:300,400,700');
+
+$grey: #e6e6e6;
+
+body {
+    margin: 0;
 }
+
+header, main {
+    display: flex;
+    width: 100%;
+}
+
+main {
+    background-color: $grey;
+}
+
+.header-content, .main-content {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 25px 0;
+}
+
+.header-content {
+
+    font-family: 'Assistant', sans-serif;
+
+    h1 {
+        font-weight: 300;
+        font-size: 2em;
+        margin: 5px 0;
+    }
+
+    p {
+        font-size: 1.2em;
+        font-weight: 700;
+        margin: 5px 0;
+    }
+    
+}
+
+.panel {
+    background-color: #fff;
+    padding: 25px 0;
+    border-radius: 4px;
+    margin-bottom: 25px;
+
+    h2 {
+        font-family: 'Assistant', sans-serif;
+        font-weight: 300;
+        font-size: 1.6em;
+        margin: 0 40px 20px 40px;
+        padding: 0 0 3px 0;
+        border-bottom: 1px solid $grey;
+    }
+
+    h3 {
+        font-family: 'Assistant', sans-serif;
+        font-weight: 300;
+        font-size: 1.2em;
+        margin: 0 0 20px 0;
+        padding: 0 0 3px 0;
+        border-bottom: 1px solid $grey;
+    }
+}
+
+.axis-tick path {
+    stroke: #d3d3d3;
+    stroke-dasharray: 1 1;
+}
+
+.temperature {
+
+    .temperature-details {
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        font-family: 'Assistant', sans-serif;
+
+        .temperature-detail {
+            flex: 1;
+            margin: 0 40px;
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+
+                tr {
+                    padding: 5px 0;
+
+                    &:nth-child(even){
+                        background-color: $grey;
+                    }
+                }
+
+                th:first-child{
+                    text-align: left;
+                }
+
+                td:first-letter, th:first-letter {
+                    text-transform: capitalize;
+                }
+
+                td:not(:first-child), th:not(:first-child) {
+                    text-align: right;
+                }
+            }
+
+            .temperature-table {
+                .table-wrapper {
+                    height: 300px;
+                    overflow-y: scroll;
+                }
+            }
+        }
+    }
+
+    text {
+        font-family: 'Assistant', sans-serif;
+        font-weight: 400;
+    }
+}
+
+.smoke-detector-list {
+    
+    .detectors {
+        margin: 0 0 0 40px;
+        display: flex;
+        font-family: 'Assistant', sans-serif;
+
+        .detector {
+            flex: 1;
+            padding: 0 20px;
+
+            span {
+
+                &.room {
+                    text-transform: capitalize;
+                    font-weight: 300;
+                    font-size: 1.2em;
+                    padding: 0 0 10px 0;
+                    border-bottom: 1px solid $grey;
+                    display: block;
+                }
+    
+                &.status {
+                    font-weight: 300;
+                    font-size: 1.5em;
+                }
+
+                &.active {
+                    color: rgb(218, 62, 62);
+                    font-size: 1.5em;
+                }
+
+                &.inactive {
+                    color: rgb(64, 180, 64);
+                    font-size: 1.5em;
+                }
+            }
+
+            
+
+            button {
+                width: 100%;
+                padding: 5px 0;
+                border-radius: 0;
+                margin: 20px 0 0 0;
+            }
+
+        }
+    }
+}
+
+

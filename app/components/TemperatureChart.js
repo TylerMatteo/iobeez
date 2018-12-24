@@ -1,53 +1,101 @@
 import React from 'react';
 import { MinimapXYFrame } from "semiotic";
+import { scaleTime, scaleLinear } from 'd3-scale';
+import { timeFormat } from 'd3-time-format';
+import { timeSecond } from 'd3-time';
+import { curveMonotoneX } from "d3-shape";
+import moment from 'moment';
 
-function TemperatureChart(props) {
+class TemperatureChart extends React.Component {
 
-    // const settings = {
-    //     lines: data,
-    //     showLinePoints: true,
-    //     lineType: { type: "line" },
-    //     xAccessor: "step",
-    //     yAccessor: "value",
-    //     lineStyle: d => ({ fill: d.label, stroke: d.label, fillOpacity: 0.75 }),
-    //     axes: [
-    //         { orient: "left"},
-    //         {
-    //             orient: "bottom",
-    //             ticks: 6
-    //         }
-    //     ]
-    // };
+    constructor(props) {
+        super(props)
 
-    console.log(props);
-
-    return (
-        <ul>
-        {
-            props.data.map((datum) =>
-                <li key={datum}>
-                        {datum.timestamp},{datum.temperatures.bedroom}
-                </li>
-            )
+        this.state= {
+            selectedExtent: [props.rooms[0].data[0].timestamp, props.rooms[0].data.slice(-1)[0].timestamp]
         }
-    </ul>
-    )
 
-    // <MinimapXYFrame
-    //     size={[1000, 700]}
-    //     {...settings}
-    //     xExtent={selectedExtent}
-    //     matte={true}
-    //     margin={{ left: 50, top: 10, bottom: 50, right: 20 }}
-    //     minimap={{
-    //         margin: { top: 20, bottom: 35, left: 20, right: 20},
-    //         ...settings,
-    //         brushEnd: brushFunction,
-    //         yBrushable: false,
-    //         xBrushExtent: extent,
-    //         size: [1000, 150]
-    //     }}
-    // />
+        const sharedSettings = {
+            
+            lineDataAccessor: "data",
+            showLinePoints: true,
+            lineIDAccessor: "id",
+            lineType: { type: "line", interpolator: curveMonotoneX },
+            xAccessor: "timestamp",
+            yAccessor: "temperature",
+            xScaleType: scaleTime(),
+            yScaleType: scaleLinear(),
+            lineStyle: d => ({ stroke: d.color }),
+            pointStyle: d => ({fill: d.color, stroke: d.color})
+        }
+
+        this.minimap= {
+            yBrushable: false,
+            size: [1200, 150],
+            margin: { left: 75, top: 10, bottom: 50, right: 40 },
+            ...sharedSettings
+        }
+
+        this.minimapXYFrameSettings = {
+            size: [1200, 400],
+            matte: true,
+            legend: true,
+            margin: { left: 75, top: 10, bottom: 50, right: 140 },
+            axes: [
+                { 
+                    orient: "left",
+                    ticksValues: [68,68.5,69,69.5,70,70.5,71,71.5,72],
+                    label: "Degrees",
+                    className: "axis-tick"
+                },
+                {
+                    orient: "bottom",
+                    ticks: timeSecond.every(5),
+                    tickFormat: (d) => { return timeFormat("%I:%M:%S %p")(d); },
+                    label: "Time",
+                    className: "axis-tick"
+                }
+            ],
+            ...sharedSettings
+        }
+
+        this.changeExtent = this.changeExtent.bind(this);
+        
+    }
+
+    changeExtent(newVal) {
+        if(this.state.selectedExtent[0] !== moment(newVal[0]).valueOf() || this.state.selectedExtent[1] !== moment(newVal[1]).valueOf()){
+            this.setState({
+                selectedExtent: [
+                    moment(newVal[0]).valueOf(),
+                    moment(newVal[1]).valueOf()
+                ]
+            })
+        }
+    }
+
+    render() {
+
+        return (
+            <div>
+                <MinimapXYFrame
+                    lines={this.props.rooms}
+                    xExtent={this.state.selectedExtent}
+                    {...this.minimapXYFrameSettings}
+                    minimap={{
+                        lines: this.props.rooms,
+                        brushEnd: this.changeExtent,
+                        xBrushExtent: this.state.selectedExtent,
+                        ...this.minimap
+                    }}
+                />
+            </div>
+            
+        )
+    }
+    
+
+    
 }
 
 module.exports = TemperatureChart;

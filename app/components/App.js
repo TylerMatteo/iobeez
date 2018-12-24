@@ -1,6 +1,6 @@
 import React from 'react';
-import io from 'socket.io-client';
 import Temperature from './Temperature'
+import SmokeDetectorList from './SmokeDetectorList'
 
 class App extends React.Component {
 
@@ -12,50 +12,28 @@ class App extends React.Component {
         }
     }
 
-    // componentDidMount() {
-    //     this.socket = io('localhost:3000/temperature');
-    //     this.socket.on('update',(data) => {
-    //         console.log(data);
-    //         this.setState((prevState) => {
-    //             return {
-    //                 words: [...prevState.words, data]
-    //             }
-    //         })
-    //     })
-    // }
-
-    // componentWillUnmount() {
-    //     this.socket.close();
-    // }
-
     render() {
         return (
-            <main>
-                <div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div>
-                    <Temperature />
-                </div>
-                <div>
+            <div>
+                <header>
+                    <div className="header-content">
+                        <h1>123 A Lane, Pittsburgh PA, 15224</h1>
+                        <p>Good morning. Here's how things are going.</p>
+                    </div>
+                </header>
+                <main>
+                    <div className="main-content">
+                        <div className="panel">
+                            <Temperature />
+                        </div>
+                        <div className="panel">
+                            <SmokeDetectorList />
+                        </div>
+                    </div>
 
-                </div>
-
-
-                {/* <ul>
-                    {
-                        this.state.words.map((word) =>
-                            <li key={word}>
-                                    {word}
-                            </li>
-                        )
-                    }
-                </ul> */}
-
-                
-            </main>
+                    
+                </main>
+            </div>
         )
     }
 }
