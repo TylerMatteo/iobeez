@@ -1,6 +1,6 @@
 import React from 'react';
-import Temperature from './Temperature'
-import SmokeDetectorList from './SmokeDetectorList'
+import Temperature from './Temperature';
+import SmokeDetectorList from './SmokeDetectorList';
 
 class App extends React.Component {
 
@@ -9,7 +9,7 @@ class App extends React.Component {
 
         this.state = {
             words: ['bleep']
-        }
+        } 
     }
 
     render() {

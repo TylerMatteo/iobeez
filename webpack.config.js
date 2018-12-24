@@ -1,6 +1,6 @@
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 
 const config = {
@@ -39,8 +39,16 @@ if (process.env.NODE_ENV === 'production') {
     config.plugins.push(
         new webpack.DefinePlugin({
             'process.env': {
-                'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+                'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+                'API_URL': JSON.stringify(process.env.API_URL)
             } 
+        })
+    )
+} else {
+    console.log('else')
+    config.plugins.push(
+        new webpack.DefinePlugin({
+            'process.env.API_URL': JSON.stringify("http://localhost:3000")
         })
     )
 }

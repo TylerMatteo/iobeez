@@ -1,6 +1,7 @@
 import React from 'react';
 import io from 'socket.io-client';
 import SmokeDetector from './SmokeDetector';
+const api = process.env.API_URL;
 
 class SmokeDetectorList extends React.Component {
 
@@ -16,7 +17,7 @@ class SmokeDetectorList extends React.Component {
     }
 
     componentDidMount() {
-        this.socket = io('localhost:3000/smoke');
+        this.socket = io(api+'/smoke');
         this.socket.on('update',(data) => {
             this.setState({
                 detectors: data

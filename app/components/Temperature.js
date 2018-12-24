@@ -4,6 +4,7 @@ import TemperatureAverages from './TemperatureAverages';
 import TemperatureTable from './TemperatureTable';
 import io from 'socket.io-client';
 import moment from 'moment';
+const api = process.env.API_URL;
 
 class Temperature extends React.Component {
 
@@ -71,7 +72,7 @@ class Temperature extends React.Component {
     }
 
     componentDidMount() {
-        this.socket = io('localhost:3000/temperature');
+        this.socket = io(api+'/temperature');
         this.socket.on('update',(data) => {
             this.setState((prevState) => {
                 return {
